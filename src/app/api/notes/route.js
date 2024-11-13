@@ -11,11 +11,14 @@ export async function GET(request) {
 
   try {
     const decoded = verify(token, process.env.JWT_SECRET);
+
+    // ('SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC', [decoded.userId])
     const { rows } = await query(
-      "SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC",
-      [decoded.userId]
+      "SELECT * FROM notes ORDER BY created_at DESC"
     );
-    return NextResponse.json(rows);
+    const { userId, isAdmin, username } = decoded;
+
+    return NextResponse.json({ rows, userId, username, isAdmin });
   } catch (error) {
     console.error("Error fetching notes:", error);
     return NextResponse.json(

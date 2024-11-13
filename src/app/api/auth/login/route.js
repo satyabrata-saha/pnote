@@ -18,6 +18,7 @@ export async function POST(request) {
     }
 
     const user = rows[0];
+
     const passwordMatch = await comparePassword(password, user.password);
 
     if (!passwordMatch) {
@@ -28,7 +29,7 @@ export async function POST(request) {
     }
 
     const token = sign(
-      { userId: user.id, isAdmin: user.is_admin },
+      { userId: user.id, username: user.username, isAdmin: user.is_admin },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );

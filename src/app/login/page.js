@@ -24,7 +24,7 @@ export default function Login() {
       if (res.ok) {
         const data = await res.json();
         if (data.isAdmin) {
-          router.push("/admin");
+          router.push("/");
         } else {
           router.push("/");
         }
