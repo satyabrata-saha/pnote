@@ -17,6 +17,21 @@ body {
   max-width: 400px !important;
 }
 
+
+ul .li {
+  border: 2px dashed #66666642 !important;
+}
+
+li,
+.textcolor {
+  color: #c0d6fa !important;
+
+}
+
+.fontsize {
+  font-size: 14px !important;
+}
+
 button {
   border: none;
   padding: 8px 16px;
@@ -85,6 +100,11 @@ textarea::placeholder {
 
 .z-index {
   z-index: 2 !important;
+}
+
+.marginy {
+  margin: 0 25px !important;
+  height: 100px !important;
 }
 
 /* label {
