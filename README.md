@@ -35,7 +35,3 @@ Satyabrata Saha
 x.com - [@satya_saha_](https://x.com/satya_saha_)
 <br>
 email- hello.satyabrata.saha@gmail.com
-
-```
-
-```
