@@ -54,6 +54,9 @@ export default function Register() {
   return (
     <div className="container d-flex justify-content-center align-items-center hightfull">
       <div className="d-flex flex-column fixedWidth text-center gap-4">
+        <div className="logo">
+          <img src="/logo.png" alt="PNote Logo" />
+        </div>
         <h2 className="">Create an account</h2>
 
         <form className="form-group d-flex flex-column" onSubmit={handleSubmit}>

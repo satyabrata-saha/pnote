@@ -40,6 +40,9 @@ export default function Login() {
   return (
     <div className="container d-flex justify-content-center align-items-center hightfull">
       <div className="d-flex flex-column fixedWidth text-center gap-4">
+        <div className="logo">
+          <img src="/logo.png" alt="PNote Logo" />
+        </div>
         <h2 className="fs-1 fw-bold ">Sign in to PNote</h2>
         <form className="form-group d-flex flex-column" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />

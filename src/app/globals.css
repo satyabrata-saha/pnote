@@ -119,3 +119,13 @@ textarea::placeholder {
   height: 100vh;
   font-size: large;
 }
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 50px;
+}
