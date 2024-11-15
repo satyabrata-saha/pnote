@@ -12,12 +12,12 @@ export async function DELETE(request, { params }) {
   try {
     const decoded = verify(token, process.env.JWT_SECRET);
 
-    const noteId = params.id;
+    const { id } = await params;
 
     // check if the note belongs to the user
     const { rows } = await query(
       "SELECT * FROM notes WHERE id = $1 AND user_id = $2",
-      [noteId, decoded.userId]
+      [id, decoded.userId]
     );
 
     if (rows.length === 0) {
@@ -28,7 +28,7 @@ export async function DELETE(request, { params }) {
     }
 
     // If the note belongs to the user, delete it
-    await query("DELETE FROM notes WHERE id = $1", [noteId]);
+    await query("DELETE FROM notes WHERE id = $1", [id]);
 
     return NextResponse.json({ message: "Note deleted successfully" });
   } catch (error) {

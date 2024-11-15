@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Notes from "@/components/Notes";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -95,46 +96,11 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h2 className="text-center my-3 fs-5 textcolor">
+      <h2 className="text-center my-3 fs-5 textcolor underline">
         User: {userData.username}
       </h2>
-      <Suspense fallback="Loading...">
-        <div className="m-0">
-          <ul className="m-0 list-unstyled">
-            {notes.map((note) => (
-              <div
-                key={note.id}
-                className="px-3 py-2 my-2 rounded li d-flex flex-column"
-              >
-                <li className="p-0">{note.content}</li>
-                <div className="p-0 m-0 mt-2 text-secondary fontsize d-flex justify-content-between">
-                  <div className="d-flex">
-                    <p className="pe-2 m-0">@{note.username}</p>
-                    <p className="pe-2 m-0">
-                      {note.created_at?.substring(0, 10)}
-                    </p>
-                    <p className="pe-2 m-0">
-                      {note.created_at?.substring(11, 19)}
-                    </p>
-                  </div>
-                  <svg
-                    onClick={() => handleDelete(note.id)}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-trash pointer"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                  </svg>
-                </div>
-              </div>
-            ))}
-          </ul>
-          <div className="marginy"></div>
-        </div>
+      <Suspense fallback={<p className="suspense">Loading...</p>}>
+        <Notes notes={notes} handleDelete={handleDelete} />
       </Suspense>
 
       <div className="fixed-bottom m-5 rounded z-index">
