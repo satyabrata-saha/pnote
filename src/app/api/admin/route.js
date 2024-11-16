@@ -3,21 +3,21 @@ import { query } from "@/lib/db";
 import { verify } from "jsonwebtoken";
 
 export async function GET(request) {
-  // const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get("token")?.value;
 
-  // if (!token) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   try {
-    // const decoded = verify(token, process.env.JWT_SECRET);
-    // if (!decoded.isAdmin) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-    // }
+    const decoded = verify(token, process.env.JWT_SECRET);
+    if (!decoded.isAdmin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
 
-    // const { rows: users } = await query(
-    //   "SELECT id, username, is_admin FROM users"
-    // );
+    const { rows: users } = await query(
+      "SELECT id, username, is_admin FROM users"
+    );
     const { rows: settings } = await query(
       "SELECT registration_enabled FROM app_settings LIMIT 1"
     );
