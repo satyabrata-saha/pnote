@@ -3,21 +3,21 @@ import { query } from "@/lib/db";
 import { verify } from "jsonwebtoken";
 
 export async function GET(request) {
-  const token = request.cookies.get("token")?.value;
+  // const token = request.cookies.get("token")?.value;
 
-  if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // if (!token) {
+  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // }
 
   try {
-    const decoded = verify(token, process.env.JWT_SECRET);
-    if (!decoded.isAdmin) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-    }
+    // const decoded = verify(token, process.env.JWT_SECRET);
+    // if (!decoded.isAdmin) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    // }
 
-    const { rows: users } = await query(
-      "SELECT id, username, is_admin FROM users"
-    );
+    // const { rows: users } = await query(
+    //   "SELECT id, username, is_admin FROM users"
+    // );
     const { rows: settings } = await query(
       "SELECT registration_enabled FROM app_settings LIMIT 1"
     );
@@ -59,33 +59,4 @@ export async function POST(request) {
       { status: 500 }
     );
   }
-}
-export async function DELETE(request) {
-  // const token = request.cookies.get("token")?.value;
-  // const prms = await request.json();
-  // console.log(prms);
-  console.log("delete");
-
-  // if (!token) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
-
-  // try {
-  //   const decoded = verify(token, process.env.JWT_SECRET);
-  //   if (!decoded.isAdmin) {
-  //     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  //   }
-
-  //   const { id } = await request.json();
-  //   console.log(id);
-
-  //   await query("DELETE FROM users WHERE id = $1", [id]);
-  //   return NextResponse.json({ message: "User deleted successfully" });
-  // } catch (error) {
-  //   console.error("Error deleting user:", error);
-  //   return NextResponse.json(
-  //     { error: "Failed to delete user" },
-  //     { status: 500 }
-  //   );
-  // }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -41,7 +42,7 @@ export default function Login() {
     <div className="container d-flex justify-content-center align-items-center hightfull">
       <div className="d-flex flex-column fixedWidth text-center gap-4">
         <div className="logo">
-          <img src="/logo.png" alt="PNote Logo" />
+          <Image src="/logo.png" width="50" height="50" alt="PNote Logo" />
         </div>
         <h2 className="fs-1 fw-bold ">Sign in to PNote</h2>
         <form className="form-group d-flex flex-column" onSubmit={handleSubmit}>

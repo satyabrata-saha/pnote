@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -14,11 +15,14 @@ export default function Register() {
   useEffect(() => {
     const checkRegistrationStatus = async () => {
       try {
-        const res = await fetch("/api/admin");
+        const res = await fetch("/api/admin/appsettings");
         if (res.ok) {
           const data = await res.json();
+          // console.log(data.registrationEnabled);
+          setRegistrationEnabled(data.registrationEnabled);
+
           if (!data.registrationEnabled) {
-            router.push("/");
+            router.push("/login");
           }
         }
       } catch (error) {
@@ -53,49 +57,54 @@ export default function Register() {
 
   return (
     <div className="container d-flex justify-content-center align-items-center hightfull">
-      <div className="d-flex flex-column fixedWidth text-center gap-4">
-        <div className="logo">
-          <img src="/logo.png" alt="PNote Logo" />
+      {registrationEnabled ? (
+        <div className="d-flex flex-column fixedWidth text-center gap-4">
+          <div className="logo">
+            <Image src="/logo.png" width="50" height="50" alt="PNote Logo" />
+          </div>
+          <h2 className="">Create an account</h2>
+
+          <form
+            className="form-group d-flex flex-column"
+            onSubmit={handleSubmit}
+          >
+            <input type="hidden" name="remember" value="true" />
+
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              className="form-control mb-3"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              className="form-control mb-3"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {error && <div className="">{error}</div>}
+
+            <button type="submit" className="btn btn-primary btn-lg">
+              Register
+            </button>
+          </form>
+          <div className="">
+            <Link href="/login" className="">
+              Already have an account? Sign in
+            </Link>
+          </div>
         </div>
-        <h2 className="">Create an account</h2>
-
-        <form className="form-group d-flex flex-column" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" value="true" />
-
-          <input
-            id="username"
-            name="username"
-            type="text"
-            required
-            className="form-control mb-3"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            className="form-control mb-3"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {error && <div className="">{error}</div>}
-
-          <button type="submit" className="btn btn-primary btn-lg">
-            Register
-          </button>
-        </form>
-        <div className="">
-          <Link href="/login" className="">
-            Already have an account? Sign in
-          </Link>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 }

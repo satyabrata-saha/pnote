@@ -1,6 +1,6 @@
 # pnote
 
-sample note taking website for parsonal or among friends
+sample note taking website for personal or among friends
 
 <img src="./public/screen.jpg" alt="PNote Logo"/>
 
